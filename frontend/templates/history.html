@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block body %}<div class="card"><h2>Your past results</h2>
+<table><tr><th>Date</th><th>Real age</th><th>Biological age</th><th>Gap</th><th>Inputs</th></tr>
+{% for r in rows %}<tr><td>{{ r.created_at }}</td><td>{{ r.real_age or '-' }}</td><td>{{ r.predicted_age }}</td>
+<td>{{ r.age_gap if r.age_gap is not none else '-' }}</td><td>{{ r.inputs_filled }}</td></tr>
+{% else %}<tr><td colspan="5">No results yet.</td></tr>{% endfor %}</table></div>{% endblock %}

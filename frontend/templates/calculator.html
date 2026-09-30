@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}
+{% if result %}<div class="card" style="background:#eef2ff"><div>Your estimated biological age</div>
+<div class="big">{{ result.bio }} years</div>
+{% if result.gap is not none %}<div class="{{ 'up' if result.gap > 0 else 'down' }}"><b>{{ result.gap|abs }} years {{ 'older' if result.gap > 0 else 'younger' }}</b> than your real age ({{ result.age }})</div>
+<p>{% if result.gap > 3 %}Your body looks older than your age.{% elif result.gap < -3 %}Your body looks younger than your age.{% else %}Your body age is close to your real age.{% endif %}</p>{% endif %}
+<div class="muted">{{ result.used }} inputs used. More inputs give a better estimate (typical model error is about 5 years).</div></div>{% endif %}
+<form method="post"><div class="card"><h2>Your details</h2><label>Real age (optional, to see the gap)</label>
+<input name="age" type="number" min="18" max="100" placeholder="e.g. 45"></div>
+{% for title, fields in groups %}<div class="card"><h2>{{ title }}</h2><div class="grid">
+{% for code,label,kind,opt in fields %}<div><label>{{ label }}</label>
+{% if kind == 'select' %}<select name="{{ code }}"><option value="">Skip</option>{% for v,t in opt %}<option value="{{ v }}">{{ t }}</option>{% endfor %}</select>
+{% else %}<input name="{{ code }}" type="number" step="any" placeholder="{{ opt }}">{% endif %}</div>{% endfor %}</div></div>{% endfor %}
+<button class="btn">Calculate biological age</button></form>{% endblock %}
