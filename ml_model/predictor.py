@@ -6,9 +6,9 @@ MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "biologica
 
 with open(MODEL_PATH, "rb") as f:
     _obj = pickle.load(f)
-if isinstance(_obj, dict):                      # {"model": ..., "features": [...]}
+if isinstance(_obj, dict):
     MODEL, FEATURES = _obj["model"], list(_obj["features"])
-else:                                           # model matrame save chesina case
+else:
     MODEL = _obj
     _names = getattr(_obj, "feature_names_in_", None)
     FEATURES = list(_names) if _names is not None else list(_obj.get_booster().feature_names)

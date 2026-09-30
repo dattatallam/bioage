@@ -1,4 +1,3 @@
-# (NHANES code, label, kind, hint or options)
 YN = [("1", "Yes"), ("2", "No")]
 GROUPS = [
     ("Profile", [

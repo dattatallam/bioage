@@ -23,7 +23,6 @@ def login_required(fn):
     w.__name__ = fn.__name__
     return w
 
-# ---------- routes ----------
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -68,9 +67,9 @@ def calculator():
             v = request.form.get(code, "").strip()
             if v:
                 given[code] = float(v)
-        if "BMXHT" in given and "BMXWT" in given:            # BMI auto
+        if "BMXHT" in given and "BMXWT" in given:
             given["BMXBMI"] = round(given["BMXWT"] / (given["BMXHT"] / 100) ** 2, 1)
-        bio = predict_age(given)          # ml_model folder nundi
+        bio = predict_age(given)
         age = request.form.get("age", "").strip()
         gap = round(bio - float(age), 1) if age else None
         q("INSERT INTO predictions (user_id,real_age,predicted_age,age_gap,inputs_filled,inputs) VALUES (%s,%s,%s,%s,%s,%s)",
